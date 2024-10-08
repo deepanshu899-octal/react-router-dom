@@ -1,6 +1,11 @@
+import { useEffect, useState } from 'react';
 import { Outlet, Link } from 'react-router-dom';
 
 const BasicLayout = () => {
+  const [isLogin,setIsLogin] = useState(JSON.parse(localStorage.getItem("isLogin")));
+  useEffect(()=>{
+
+  },[isLogin])
   return (
     <div>
       <header>
@@ -9,8 +14,23 @@ const BasicLayout = () => {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/about">About</Link></li>
             <li><Link to="/contact">Contact</Link></li>
+            <li><Link to="/auth/dashboard">Dashboard</Link></li>
+            <li><Link to="/auth/profile">Profile</Link></li>
           </ul>
         </nav>
+       {
+        !isLogin ? (
+          <button onClick={()=>{
+            localStorage.setItem("isLogin",true);
+            setIsLogin(true) 
+          }}>Login</button>
+        ) : (
+          <button onClick={()=>{
+            localStorage.setItem("isLogin",false)
+            setIsLogin(false) 
+          }}>Logout</button>
+        )
+       }
       </header>
       
       <main>

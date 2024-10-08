@@ -14,6 +14,8 @@ const AuthLayout = ({ isAuthenticated }) => {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/about">About</Link></li>
             <li><Link to="/contact">Contact</Link></li>
+            <li><Link to="/auth/dashboard">Dashboard</Link></li>
+            <li><Link to="/auth/profile">Profile</Link></li>
           </ul>
         </nav>
       </header>

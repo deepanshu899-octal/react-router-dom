@@ -4,9 +4,9 @@ import AuthLayout from '../layout/AuthLayout';
 import Dashboard from '../pages/DashBoard'
 
 // Simulated authentication status
-const isAuthenticated = true;
+const isAuthenticated = false;
 
-const AuthRoutes = {
+const AuthRoutesFalse = {
       path: '/auth',
       element: <AuthLayout isAuthenticated={isAuthenticated} />,
       children: [
@@ -15,4 +15,4 @@ const AuthRoutes = {
       ],
     }
 
-export default AuthRoutes;
+export default AuthRoutesFalse;
