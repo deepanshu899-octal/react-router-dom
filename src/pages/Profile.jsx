@@ -10,11 +10,25 @@ export default function Profile() {
     isLoading: isLoadingPosts,
     isSuccess: isSuccessPosts, // To check if the posts query is successful
     refetch,
-  } = useQuery(['postsData',id], () => getApi(`https://jsonplaceholder.typicode.com/posts/${id}`));
-  console.log(posts)
+  } = useQuery( ['postsData',id], 
+                () => getApi(`https://jsonplaceholder.typicode.com/posts/${id}`),  {
+                // This ensures the query only runs when id is neither null nor undefined
+                enabled: id !== null && id !== undefined && id!=='',
+  });
+
   return (
     <>
      <input type="number" value={id} onChange={(e)=>{setId(e.target.value)}} />
+     {
+     isLoadingPosts ? ('getting data...') : (
+      <>
+      <p>{posts?.userId}</p>
+      <p>{posts?.id}</p>
+      <p>{posts?.title}</p>
+      <p>{posts?.body}</p>
+      </>
+     )
+     }
     </>
   )
 }

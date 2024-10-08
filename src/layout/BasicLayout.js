@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Outlet, Link } from 'react-router-dom';
+import { Outlet, Link,useNavigate  } from 'react-router-dom';
 
 const BasicLayout = () => {
   const [isLogin,setIsLogin] = useState(JSON.parse(localStorage.getItem("isLogin")));
+  const navigate = useNavigate();
   useEffect(()=>{
 
   },[isLogin])

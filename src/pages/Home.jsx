@@ -9,9 +9,17 @@ const Home = () => {
     data: posts,
     error: errorPosts,
     isLoading: isLoadingPosts,
-    isSuccess: isSuccessPosts, // To check if the posts query is successful
-  } = useQuery("postsData", () => getApi('https://jsonplaceholder.typicode.com/posts'));
-
+    isSuccess: isSuccessPosts,
+    refetch,
+  } = useQuery(
+    "postsData",
+    () => getApi('https://jsonplaceholder.typicode.com/posts'),
+    {
+      // Polling interval in milliseconds (e.g., 5000ms = 5 seconds)
+      staleTime: 100000, // 100 seconds
+      // refetchInterval: 500,
+    }
+  );
   // Query for users
   const {
     data: users,
@@ -21,6 +29,7 @@ const Home = () => {
                 () => getApi('https://dummyjson.com/users'),
                 {
                   enabled: isSuccessPosts, // Users query only runs when the posts query is successful
+                  staleTime: 100000,
                 }
   );
 
