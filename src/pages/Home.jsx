@@ -18,6 +18,7 @@ const Home = () => {
       // Polling interval in milliseconds (e.g., 5000ms = 5 seconds)
       // refetchInterval: 500,
       staleTime: 100000, // 100 seconds
+      // refetchOnWindowFocus: false, // default: true
     }
   );
   // Query for users
@@ -32,7 +33,8 @@ const Home = () => {
                   enabled: isSuccessPosts, // Users query only runs when the posts query is successful
                   // staleTime: 100000,
                   staleTime: 0, // Data is immediately stale after fetching
-                  cacheTime: 0, // No caching, data is removed immediately
+                  // cacheTime: 0, // No caching, data is removed immediately
+                  // refetchOnWindowFocus: false, // default: true
                 }
   );
 
