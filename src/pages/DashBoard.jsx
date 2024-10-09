@@ -7,9 +7,12 @@ export default function DashBoard() {
     data: posts,
     error,
     isLoading,
-  } = useQuery("postsData", ()=>getApi('https://jsonplaceholder.typicode.com/posts'));
+  } = useQuery("postsData", ()=>getApi('/posts'), {
+    staleTime: Infinity, // Keep using cached data indefinitely
+  });
   return (
     <>
+    <p style={{color:"red"}}>This page doesnt make posts get api call if you come from home page, it will only make posts get api request if refresh the page </p>
     <div>DashBoard</div>
     {
       !isLoading && 

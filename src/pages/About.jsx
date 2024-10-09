@@ -1,13 +1,34 @@
 import React, { useState } from "react";
-import { useMutation } from "react-query";
-import { postApi } from "../utils/apiCaller";
+import { QueryClient, useMutation, useQuery } from "react-query";
+import { getApi, postApi } from "../utils/apiCaller";
 
 const About = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
 
+  const {
+    data: posts,
+    error: errorPosts,
+    isLoading: isLoadingPosts,
+    isSuccess: isSuccessPosts,
+    refetch,
+  } = useQuery("postsData", () => getApi('/posts'));
+
   const mutation = useMutation((newPost) =>
-   postApi('https://jsonplaceholder.typicode.com/posts',newPost)
+   postApi('/posts',newPost), 
+   {
+     _onSuccess: () => {
+       // Invalidate and refetch users query after adding a user
+       refetch();
+      console.log('api post sucesful')
+     },
+     get onSuccess() {
+       return this._onSuccess;
+     },
+     set onSuccess(value) {
+       this._onSuccess = value;
+     },
+   }
   );
 
   const submitData = () => {

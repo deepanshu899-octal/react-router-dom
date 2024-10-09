@@ -13,11 +13,11 @@ const Home = () => {
     refetch,
   } = useQuery(
     "postsData",
-    () => getApi('https://jsonplaceholder.typicode.com/posts'),
+    () => getApi('/posts'),
     {
       // Polling interval in milliseconds (e.g., 5000ms = 5 seconds)
-      staleTime: 100000, // 100 seconds
       // refetchInterval: 500,
+      staleTime: 100000, // 100 seconds
     }
   );
   // Query for users
@@ -25,11 +25,14 @@ const Home = () => {
     data: users,
     error: errorUsers,
     isLoading: isLoadingUsers,
+    isSuccess: isSucessUsers
   } = useQuery("usersData",
-                () => getApi('https://dummyjson.com/users'),
+                () => getApi('/users'),
                 {
                   enabled: isSuccessPosts, // Users query only runs when the posts query is successful
-                  staleTime: 100000,
+                  // staleTime: 100000,
+                  staleTime: 0, // Data is immediately stale after fetching
+                  cacheTime: 0, // No caching, data is removed immediately
                 }
   );
 
@@ -40,8 +43,12 @@ const Home = () => {
   if (errorPosts) return <div>An error occurred while fetching posts: {errorPosts.message}</div>;
   if (errorUsers) return <div>An error occurred while fetching users: {errorUsers.message}</div>;
 
+  if(isSucessUsers){
+    // console.log(users[0].name8)
+  }
   return (
     <div>
+      <p style={{color:"red"}}>{"Two get apis are getting called here (posts and users). users api is dependent on posts api so we used enabled: isSuccessPosts in posts query. The user api is called after th data came from posts get api"}</p>
       <h2>Posts</h2>
       <ul style={{height:"100px",overflow:'auto'}}>
         {posts.map((post) => (
@@ -52,10 +59,13 @@ const Home = () => {
       {
      isLoadingUsers ? "getting users" :
         <ul style={{height:"100px",overflow:'auto'}}>
-        {users.users.map((user) => (
-          <li key={user.id}>{user.firstName}</li>
+        {users.map((user) => (
+          <li key={user?.id}>{user?.name} - email : {user?.email}</li>
         ))}
       </ul>
+      }
+      {
+       isSucessUsers && users[0].name1fsdf && 'hello'
       }
     </div>
   );

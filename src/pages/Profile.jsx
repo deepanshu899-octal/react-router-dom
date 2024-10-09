@@ -11,7 +11,7 @@ export default function Profile() {
     isSuccess: isSuccessPosts, // To check if the posts query is successful
     refetch,
   } = useQuery( ['postsData',id], 
-                () => getApi(`https://jsonplaceholder.typicode.com/posts/${id}`),  {
+                () => getApi(`/posts/${id}`),  {
                 // This ensures the query only runs when id is neither null nor undefined
                 enabled: id !== null && id !== undefined && id!=='',
   });

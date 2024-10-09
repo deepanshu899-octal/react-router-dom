@@ -8,7 +8,7 @@ const Contact = () => {
   const [id,setId] = useState(1);
 
   const mutation = useMutation((updatedPost) =>
-    axios.put(`https://jsonplaceholder.typicode.com/posts/${id}`, updatedPost),
+    axios.put(`/posts/${id}`, updatedPost),
   );
 
   const submitData = () => {
