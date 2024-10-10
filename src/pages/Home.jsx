@@ -11,13 +11,14 @@ const Home = () => {
     isLoading: isLoadingPosts,
     isSuccess: isSuccessPosts,
     refetch,
+    isIdle: isIdlePosts
   } = useQuery(
     "postsData",
     () => getApi('/posts'),
     {
       // Polling interval in milliseconds (e.g., 5000ms = 5 seconds)
       // refetchInterval: 500,
-      staleTime: 100000, // 100 seconds
+      staleTime: 10000, // 100 seconds
     }
   );
   // Query for users
@@ -25,16 +26,18 @@ const Home = () => {
     data: users,
     error: errorUsers,
     isLoading: isLoadingUsers,
-    isSuccess: isSucessUsers
+    isSuccess: isSucessUsers,
   } = useQuery("usersData",
                 () => getApi('/users'),
                 {
                   enabled: isSuccessPosts, // Users query only runs when the posts query is successful
                   // staleTime: 100000,
-                  staleTime: 0, // Data is immediately stale after fetching
-                  cacheTime: 0, // No caching, data is removed immediately
+                  staleTime: 10000, // Data is immediately stale after fetching
+                  // cacheTime: 0, // No caching, data is removed immediately
                 }
   );
+  console.log('isLoadingPosts--------------',isLoadingPosts)
+  // console.log('isLoadingUsers--------------',isLoadingUsers)
 
   // Handle loading states
   if (isLoadingPosts) return <div>Loading...</div>;

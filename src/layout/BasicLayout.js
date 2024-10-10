@@ -17,6 +17,8 @@ const BasicLayout = () => {
             <li><Link to="/contact">Contact</Link></li>
             <li><Link to="/auth/dashboard">Dashboard</Link></li>
             <li><Link to="/auth/profile">Profile</Link></li>
+            <li><Link to="/lightbox">LightBox</Link></li>
+            <li><Link to="/payment">payment</Link></li>
           </ul>
         </nav>
        {
