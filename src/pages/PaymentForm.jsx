@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
-import { StripePaymentElement } from './StripePaymentElement';
+import StripePaymentElement  from './StripePaymentElement';
 
 const PaymentForm = () => {
   const [clientSecret, setClientSecret] = useState('');

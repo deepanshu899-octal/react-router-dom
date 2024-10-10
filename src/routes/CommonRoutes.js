@@ -5,6 +5,7 @@ import Contact from '../pages/Contact';
 import BasicLayot from "../layout/BasicLayout"
 import Light_box from '../pages/Light_box';
 import PaymentForm from '../pages/PaymentForm';
+import Success from '../pages/Success';
 
 
 const CommonRoutes = {
@@ -16,6 +17,7 @@ const CommonRoutes = {
         { path: 'contact', element: <Contact /> },
         { path: 'lightbox', element: <Light_box /> },
         { path: 'payment', element: <PaymentForm /> },
+        { path: 'Success', element: <Success /> },
       ],
     };
   
