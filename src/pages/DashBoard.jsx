@@ -9,6 +9,7 @@ export default function DashBoard() {
     isLoading,
   } = useQuery("postsData", ()=>getApi('/posts'), {
     staleTime: Infinity, // Keep using cached data indefinitely
+    refetchOnWindowFocus: false, // default: true
   });
   return (
     <>
