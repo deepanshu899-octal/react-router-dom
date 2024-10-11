@@ -18,6 +18,8 @@ const AuthLayout = ({ isAuthenticated }) => {
             <li><Link to="/auth/profile">Profile</Link></li>
             <li><Link to="/lightbox">LightBox</Link></li>
             <li><Link to="/payment">payment</Link></li>
+            <li><Link to="/paypal">paypal</Link></li> 
+            <li><Link to="/bankTransfer">bank transfer</Link></li>
           </ul>
         </nav>
       </header>

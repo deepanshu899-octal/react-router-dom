@@ -6,6 +6,8 @@ import BasicLayot from "../layout/BasicLayout"
 import Light_box from '../pages/Light_box';
 import PaymentForm from '../pages/PaymentForm';
 import Success from '../pages/Success';
+import BankTransferPage from '../pages/BankTransferPage';
+import PayPalPage from '../pages/PaylPalPage';
 
 
 const CommonRoutes = {
@@ -18,6 +20,8 @@ const CommonRoutes = {
         { path: 'lightbox', element: <Light_box /> },
         { path: 'payment', element: <PaymentForm /> },
         { path: 'Success', element: <Success /> },
+        { path: 'bankTransfer', element: <BankTransferPage /> },
+        { path: 'paypal', element: <PayPalPage /> },
       ],
     };
   
