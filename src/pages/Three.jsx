@@ -73,7 +73,7 @@ function Three() {
     const sun = new THREE.Mesh(sunGeometry, sunMat);
     scene.add(sun);
     
-    function createPlanet(size, texture, position, ring) {
+    function createPlanet(size, texture, position, ring,moon=false) {
         //creting planet sphere
         const geo = new THREE.SphereGeometry(size, 30, 30);
         const mat = new THREE.MeshStandardMaterial({
@@ -97,9 +97,17 @@ function Three() {
             ringMesh.position.x = position;
             ringMesh.rotation.x = -0.5 * Math.PI
         }
+        let moonSphere
+        if(moon){
+          const geometry2 = new THREE.SphereGeometry(1, 32, 32); // Radius 0.5
+          const material2 = new THREE.MeshBasicMaterial({   map: textureLoader.load('2k_moon.jpg') }); // Blue color
+          moonSphere = new THREE.Mesh(geometry2, material2);
+          moonSphere.position.x = 62 + 6;
+          obj.add(moonSphere)
+        }
         scene.add(obj);
         mesh.position.x = position;
-        return { mesh, obj }
+        return { mesh, obj, moonSphere }
     }
     
     //planets
@@ -108,7 +116,7 @@ function Three() {
     
     const venus = createPlanet(5.8, 'img/venus.jpg', 44);
     
-    const earth = createPlanet(3.2, 'img/venus.jpg', 62);
+    const earth = createPlanet(3.2, '8k_earth_daymap.jpg', 62,false,true);
     
     const mars = createPlanet(4, 'img/mars.jpg', 78);
     
@@ -144,7 +152,8 @@ function Three() {
 // directionalLight.position.set(0, 0, 1); // Position the light
 // scene.add(directionalLight);
 
-    
+let angle = 0; // Angle for rotation
+const radius = 10; // Distance from sphere1
     
     function animate() {
         speed = options.speed;
@@ -172,6 +181,13 @@ function Three() {
         uranus.obj.rotateY(0.0004* speed1)
         neptune.obj.rotateY(0.0001* speed1)
         pluto.obj.rotateY(0.00007* speed1);
+
+        angle += 0.01; // Adjust this value to change rotation speed
+
+        // Calculate the new position for sphere2
+        earth.moonSphere.rotateY(0.2 * speed);
+        earth.moonSphere.position.x = earth.mesh.position.x + radius * Math.cos(angle);
+        earth.moonSphere.position.z = earth.mesh.position.z + radius * Math.sin(angle);
     
         renderer.render(scene, camera);
     
