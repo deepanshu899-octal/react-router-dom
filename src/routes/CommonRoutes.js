@@ -8,6 +8,9 @@ import PaymentForm from '../pages/PaymentForm';
 import Success from '../pages/Success';
 import BankTransferPage from '../pages/BankTransferPage';
 import PayPalPage from '../pages/PaylPalPage';
+import Three from '../pages/Three';
+import PointLightPage from '../pages/PointLightPage';
+import Video_1 from '../pages/wailYasmin/Video_1';
 
 
 const CommonRoutes = {
@@ -22,6 +25,9 @@ const CommonRoutes = {
         { path: 'Success', element: <Success /> },
         { path: 'bankTransfer', element: <BankTransferPage /> },
         { path: 'paypal', element: <PayPalPage /> },
+        { path: 'threejs', element: <Three /> },
+        { path: 'pointLight', element: <PointLightPage /> },
+        { path: 'video1', element: <Video_1 /> },
       ],
     };
   
