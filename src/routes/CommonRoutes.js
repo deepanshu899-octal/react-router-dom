@@ -12,6 +12,7 @@ import Three from '../pages/Three';
 import PointLightPage from '../pages/PointLightPage';
 import Video_1 from '../pages/wailYasmin/Video_1';
 import ImageCropper from '../pages/ImageCropper';
+import LazyComponent from '../pages/LazyComponent';
 
 
 const CommonRoutes = {
@@ -30,6 +31,7 @@ const CommonRoutes = {
         { path: 'pointLight', element: <PointLightPage /> },
         { path: 'video1', element: <Video_1 /> },
         { path: 'imagecrop', element: <ImageCropper /> },
+        { path: 'lazyComponent', element: <LazyComponent /> },
       ],
     };
   

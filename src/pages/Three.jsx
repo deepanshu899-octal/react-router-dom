@@ -115,12 +115,14 @@ function Three() {
     mercury.obj.rotation.x = -0.1 * Math.PI
     
     const venus = createPlanet(5.8, 'img/venus.jpg', 44);
+    venus.obj.rotation.x = -0.2 * Math.PI
     
     const earth = createPlanet(3.2, '8k_earth_daymap.jpg', 62,false,true);
     
     const mars = createPlanet(4, 'img/mars.jpg', 78);
     
     const jupiter = createPlanet(12, 'img/jupiter.jpg', 100);
+    jupiter.obj.rotation.x = 0.1 * Math.PI
     
     //creting saturn with ring
     const saturn = createPlanet(10, 'img/saturn.jpg', 138, {

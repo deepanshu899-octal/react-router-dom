@@ -21,6 +21,7 @@ const BasicLayout = () => {
             <li><Link to="/payment">payment</Link></li> 
             <li><Link to="/paypal">paypal</Link></li> 
             <li><Link to="/bankTransfer">bank transfer</Link></li>
+            <li><Link to="/lazyComponent">lazy Component</Link></li>
           </ul>
         </nav>
        {

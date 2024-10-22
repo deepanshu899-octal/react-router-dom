@@ -1,9 +1,11 @@
 import React, { useRef, useEffect } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 export default function Video_1() {
   const mountRef = useRef(null);
+  let mixer; // Declare the AnimationMixer
 
   useEffect(() => {
     // Create a scene
@@ -23,16 +25,16 @@ export default function Video_1() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     mountRef.current.appendChild(renderer.domElement);
 
-    //enabling shadow in threejs
+    // Enable shadow in Three.js
     renderer.shadowMap.enabled = true;
 
     // Create OrbitControls
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true; // Enable damping (inertia) for smoother controls
+    controls.enableDamping = true;
     controls.dampingFactor = 0.25;
 
     // Create a sphere (ball)
-    const sphereGeometry = new THREE.SphereGeometry(1, 64, 64); // radius: 1
+    const sphereGeometry = new THREE.SphereGeometry(1, 64, 64);
     const sphereMaterial = new THREE.MeshStandardMaterial({
       color: 0x0077ff,
       wireframe: false,
@@ -41,64 +43,75 @@ export default function Video_1() {
     scene.add(sphere);
     sphere.castShadow = true;
 
-    // Add AxesHelper
+    // Add AxesHelper and GridHelper
     const axesHelper = new THREE.AxesHelper(5);
     scene.add(axesHelper);
 
-    // Add GridHelper
-    const gridHelper = new THREE.GridHelper(5, 50); // size: 5, divisions: 50
+    const gridHelper = new THREE.GridHelper(5, 50);
     scene.add(gridHelper);
 
-    // Create a PlaneGeometry and a MeshBasicMaterial, then combine them into a mesh (plane)
-    const planeGeometry = new THREE.PlaneGeometry(10, 10); // larger plane for a better effect
+    // Create a PlaneGeometry and a MeshStandardMaterial, then combine them into a mesh (plane)
+    const planeGeometry = new THREE.PlaneGeometry(10, 10);
     const planeMaterial = new THREE.MeshStandardMaterial({
       color: 0xffffff,
       side: THREE.DoubleSide,
     });
     const plane = new THREE.Mesh(planeGeometry, planeMaterial);
     scene.add(plane);
-    plane.receiveShadow = true
-    plane.rotateX(-Math.PI / 2); // Rotate to make it horizontal
+    plane.receiveShadow = true;
+    plane.rotateX(-Math.PI / 2);
 
     // Add ambient light
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5); // color: white, intensity: 0.5
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
 
     // Add DirectionalLight
-    const directionalLight = new THREE.DirectionalLight(0xFFFFFF, 2); // color: white, intensity: 1
-    directionalLight.position.set(5, 10, 7); // Set the position of the light
-    // scene.add(directionalLight);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+    directionalLight.position.set(5, 10, 7);
     directionalLight.castShadow = true;
+    scene.add(directionalLight);
 
-    // Optionally, add a helper to visualize the light's direction
-    const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 2);
-    scene.add(directionalLightHelper);
+    // Load the GLTF model (doggo.glb)
+    const loader = new GLTFLoader();
+    loader.load(
+      '/doggo.glb', // Replace with the actual path
+      (gltf) => {
+        const model = gltf.scene;
+        model.position.set(0, 0, 0); // Adjust the position of the model in the scene
+        model.castShadow = true;
+        scene.add(model);
 
-    // Add SpotLight
-    const spotLight = new THREE.SpotLight(0xffffff); // color: white
-    spotLight.position.set(5, 10, 5); // Set the position of the spotlight
-    spotLight.angle = Math.PI / 60; // Set the spotlight cone's spread angle
-    spotLight.penumbra = 0.1; // Penumbra: smoothness of the spotlight's edges
-    spotLight.intensity = 100; // Intensity of the light
-    spotLight.castShadow = true
-    
-    scene.add(spotLight);
+        // Initialize the AnimationMixer for the loaded model
+        mixer = new THREE.AnimationMixer(model);
 
-// // Optionally, add a helper to visualize the spotlight's direction and target
-// const spotLightHelper = new THREE.SpotLightHelper(spotLight);
-// scene.add(spotLightHelper);
+        // Get the first animation from the loaded glTF model and play it
+        const action = mixer.clipAction(gltf.animations[0]);
+        action.play();
+      },
+      undefined,
+      (error) => {
+        console.error('An error occurred while loading the model:', error);
+      }
+    );
 
-
-
-    // Variables for bouncing effect
-    let velocity = 0; // Velocity of the sphere (ball)
-    let gravity = -0.01; // Simulating gravity
-    let bounceFactor = 1; // Energy loss after bouncing
-    let positionY = 3; // Initial height of the ball
+    // Variables for bouncing effect (for the ball)
+    let velocity = 0;
+    let gravity = -0.01;
+    let bounceFactor = 1;
+    let positionY = 3;
 
     // Animation loop
+    const clock = new THREE.Clock(); // Clock for keeping track of time
+
     const animate = function () {
       requestAnimationFrame(animate);
+
+      const delta = clock.getDelta(); // Get the time between frames
+
+      // Update the animation mixer if it exists
+      if (mixer) {
+        mixer.update(delta); // Advance the animation according to the clock's delta time
+      }
 
       // Apply gravity to the ball's velocity
       velocity += gravity;
@@ -106,8 +119,8 @@ export default function Video_1() {
 
       // Collision detection with the plane
       if (positionY <= 1) {
-        positionY = 1; // Stop the ball at the surface
-        velocity = -velocity * bounceFactor; // Reverse velocity and apply bounce factor
+        positionY = 1;
+        velocity = -velocity * bounceFactor;
       }
 
       // Update sphere position
@@ -133,7 +146,6 @@ export default function Video_1() {
 
     // Clean up on unmount
     return () => {
-      // mountRef.current.removeChild(renderer.domElement);
       window.removeEventListener('resize', handleResize);
     };
   }, []);
