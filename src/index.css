@@ -11,3 +11,27 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+.image-gallery-wrapper {
+  margin-top: 5rem;
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  background-color: transparent;
+}
+
+.image-gallery-image{
+  width: 80% !important;
+  }
+  
+
+.image-gallery-video{
+  width: 80% !important;
+  }
+  
+@media only screen and (min-device-width: 375px) {
+  .header-wrapper {
+    padding: 1rem;
+  }
+}

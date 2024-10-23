@@ -22,6 +22,8 @@ const BasicLayout = () => {
             <li><Link to="/paypal">paypal</Link></li> 
             <li><Link to="/bankTransfer">bank transfer</Link></li>
             <li><Link to="/lazyComponent">lazy Component</Link></li>
+            <li><Link to="/location">location</Link></li>
+            <li><Link to="/ImageGalleryModal2">ImageGalleryModal2</Link></li>
           </ul>
         </nav>
        {

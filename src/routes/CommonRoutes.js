@@ -13,6 +13,8 @@ import PointLightPage from '../pages/PointLightPage';
 import Video_1 from '../pages/wailYasmin/Video_1';
 import ImageCropper from '../pages/ImageCropper';
 import LazyComponent from '../pages/LazyComponent';
+import LocationComponent from '../pages/LocationComponent';
+import ImageGalleryModal2 from '../pages/Light_box';
 
 
 const CommonRoutes = {
@@ -32,6 +34,8 @@ const CommonRoutes = {
         { path: 'video1', element: <Video_1 /> },
         { path: 'imagecrop', element: <ImageCropper /> },
         { path: 'lazyComponent', element: <LazyComponent /> },
+        { path: 'location', element: <LocationComponent /> },
+        { path: 'ImageGalleryModal2', element: <ImageGalleryModal2 /> },
       ],
     };
   
