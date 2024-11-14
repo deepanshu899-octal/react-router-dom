@@ -73,7 +73,7 @@ const images = [
   },
 ];
 
-function VideoElement({item}){
+function VideoElement({item,index}){
   const videoRef = useRef(null);
   return(
     <video
@@ -82,7 +82,12 @@ function VideoElement({item}){
     onFocus={(e) => e.target.play()} // Play video on focus
     onBlur={(e) => e.target.pause()} // Pause video on blur
     ref={videoRef}
-    onMouseEnter={()=>{videoRef.current.play()}}
+    poster="/logo512.png"
+    style={{borderRadius:"4px"}}
+    onMouseEnter={()=>{
+       // videoRef.current.play();
+       videoRef.current.focus()
+    }}
   >
     <source src={item.original} type="video/mp4" />
     Your browser does not support the video tag.
@@ -100,7 +105,7 @@ export default function ImageGalleryModal() {
 
   const renderVideo = (item, index) => {
     return (
-      <VideoElement item={item}/>
+      <VideoElement item={item} index={index}/>
   )};
 
   // Custom next button
@@ -154,28 +159,29 @@ export default function ImageGalleryModal() {
       <Modal open={isOpen} onClose={closeModal} closeAfterTransition sx={{ display: 'flex' }}>
         <Box
           sx={{
-            width: '80vw',
-            maxWidth: '1200px',
+            width: '100vw',
+            maxWidth: '100vw',
             margin: 'auto',
-            backgroundColor: 'white',
+            backgroundColor: 'transparent',
             padding: '20px',
             borderRadius: '8px',
             outline: 'none',
-            height: '60vh',
+            height: '100vh',
             display: 'flex',
             alignItems: 'center',
             justifyContent: 'center',
           }}
         >
+          <button style={{position:"absolute", top:"10px",right:"10px"}} onClick={()=>{setIsOpen(false)}}>Close</button>
           <div className="image-gallery-wrapper">
             <ImageGallery
               items={images}
               showPlayButton={false}
               showFullscreenButton={false}
               renderItem={(item, index) =>
-                item.embed ? renderVideo(item, index) : <img src={item.original} className="image-gallery-image" alt="" />
+                item.embed ? renderVideo(item, index) : <img src={item.original} className="image-gallery-image" style={{borderRadius:"5px"}} alt="" />
               }
-              showIndex
+              // showIndex
               renderRightNav={customRightNav}
               renderLeftNav={customLeftNav}
               // onBeforeSlide={(currentIndex)=>{console.log(currentIndex)}}

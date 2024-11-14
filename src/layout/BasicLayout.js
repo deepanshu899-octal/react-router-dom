@@ -24,6 +24,7 @@ const BasicLayout = () => {
             <li><Link to="/lazyComponent">lazy Component</Link></li>
             <li><Link to="/location">location</Link></li>
             <li><Link to="/ImageGalleryModal2">ImageGalleryModal2</Link></li>
+            <li><Link to="/reactgridgallery">React-Grid-gallery</Link></li>
           </ul>
         </nav>
        {

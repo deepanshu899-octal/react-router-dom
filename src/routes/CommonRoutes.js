@@ -15,6 +15,7 @@ import ImageCropper from '../pages/ImageCropper';
 import LazyComponent from '../pages/LazyComponent';
 import LocationComponent from '../pages/LocationComponent';
 import ImageGalleryModal2 from '../pages/Light_box';
+import ReactGridGallery from '../pages/ReactGridGallery';
 
 
 const CommonRoutes = {
@@ -36,6 +37,7 @@ const CommonRoutes = {
         { path: 'lazyComponent', element: <LazyComponent /> },
         { path: 'location', element: <LocationComponent /> },
         { path: 'ImageGalleryModal2', element: <ImageGalleryModal2 /> },
+        { path: 'reactgridgallery', element: <ReactGridGallery /> },
       ],
     };
   
