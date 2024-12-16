@@ -41,6 +41,20 @@ const Home = () => {
   console.log('isLoadingPosts--------------',isLoadingPosts)
   // console.log('isLoadingUsers--------------',isLoadingUsers)
 
+  function openMap(lat, lng) {
+    const url = `https://www.google.com/maps/place/${lat},${lng}`;
+  
+    // Calculate half of the screen's width and height
+    const width = window.screen.width / 2;
+    const height = window.screen.height / 2;
+  
+    // Position the window at the center
+    const left = (window.screen.width - width) / 2;
+    const top = (window.screen.height - height) / 2;
+  
+    // Open the new window with the calculated size and position
+    window.open(url, "_blank", `width=${width},height=${height},top=${top},left=${left}`);
+  }
   // Handle loading states
   if (isLoadingPosts) return <div>Loading...</div>;
 
@@ -53,7 +67,9 @@ const Home = () => {
   }
   return (
     <div>
-      <p style={{color:"red"}}>{"Two get apis are getting called here (posts and users). users api is dependent on posts api so we used enabled: isSuccessPosts in posts query. The user api is called after th data came from posts get api"}</p>
+      <p style={{color:"red"}} onClick={()=>{
+          openMap(10.691803,-61.222503)
+      }}>{"Two get apis are getting called here (posts and users). users api is dependent on posts api so we used enabled: isSuccessPosts in posts query. The user api is called after th data came from posts get api"}</p>
       <h2>Posts</h2>
       <ul style={{height:"100px",overflow:'auto'}}>
         {posts.map((post) => (
